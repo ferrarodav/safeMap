@@ -11,8 +11,13 @@ Moreover, the used file paths and the name under which each output variable is s
 <!--When needed, the number of outputs can be manually specified (`config.numberOfFunctionOutputs`) otherwise it will be inferred.-->
 
 ```matlab
->> output = safeMap(@(x) x^5, repmat({rand(300)}, 10, 10));
-Progress: 100 / 100 (100.0%)
+>> output = safeMap(@(x) rand(1,300)*x^5*rand(300,1), repmat({rand(300)}, 100, 100));
+Progress: 731 / 10000 (7.3%)
+Estimated remaining time: 143s
+🔴(Ctrl+C) Operation terminated by user during ...
+>> output = safeMap(@(x) rand(1,300)*x^5*rand(300,1), repmat({rand(300)}, 100, 100));
+Resuming previous work, from 732-th input
+Progress: 10000 / 10000 (100.0%)
 Estimated remaining time: 0s
 ```
 
