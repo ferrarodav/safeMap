@@ -71,7 +71,7 @@ In case `config.joinUniformOutput` is `true` (which is the default), each output
 
 ## Examples
 
-### Explore a grid of hyperparameters for a simulation or training a Neural Netork
+### Explore a grid of hyperparameters for a simulation or training a Neural Network
 
 ```matlab
 data = 1;
@@ -112,7 +112,7 @@ ans =
 >> size(maxIndexs) 
 ans =
     100    2
->> output_file = safemap.safeMap(@(x) maxk(x, 2), data, struct('variableNames', 'filePath', 'max.mat', {{'values', 'indexs'}}));
+>> output_file = safemap.safeMap(@(x) maxk(x, 2), data, struct('filePath', 'max.mat', 'variableNames', {{'values', 'indexs'}}));
 >> who -file max.mat
 
 Your variables are:
