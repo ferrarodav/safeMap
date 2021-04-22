@@ -30,11 +30,12 @@ Estimated remaining time: 0s
 
 ## Table of contents <!-- omit in toc -->
 
+- [Limitations](#limitations)
 - [Installation](#installation)
 - [Arguments](#arguments)
 - [Outputs](#outputs)
 - [Examples](#examples)
-  - [Explore a grid of hyperparameters for a simulation or training a Neural Netork](#explore-a-grid-of-hyperparameters-for-a-simulation-or-training-a-neural-netork)
+  - [Explore a grid of hyperparameters for a simulation or training a Neural Network](#explore-a-grid-of-hyperparameters-for-a-simulation-or-training-a-neural-network)
   - [Setting a configuration](#setting-a-configuration)
 - [Contributing](#contributing)
 - [License](#license)
@@ -135,7 +136,7 @@ Here is some contribution idea:
 To run the test use matlab command:
 
 ```matlab
-result = runtests('safeMap_tests');
+results = runtests('safemap.safeMapTest')
 ```
 
 ## License
