@@ -41,7 +41,7 @@ Estimated remaining time: 0s
 
 ## Installation
 
-Clone the [repo](https://raw.githubusercontent.com/ferrarodav/safeMap) (or [download a copy of the latest code](https://github.com/ferrarodav/safeMap/archive/refs/heads/main.zip)) and add the `Mcode` directory to your MATLAB path with `addpath`.
+Clone the [repo](https://github.com/ferrarodav/safeMap/) (or [download a copy of the latest code](https://github.com/ferrarodav/safeMap/archive/refs/heads/main.zip)) and add the `Mcode` directory to your MATLAB path with `addpath`.
 
 ```bash
 git clone https://github.com/ferrarodav/safeMap
