@@ -14,11 +14,11 @@ Moreover, the used file paths and the name under which each output variable is s
 <!--When needed, the number of outputs can be manually specified (`config.numberOfFunctionOutputs`) otherwise it will be inferred.-->
 
 ```text
->> output = safeMap(@(x) rand(1,300)*x^5*rand(300,1), repmat({rand(300)}, 100, 100));
+>> output = safemap.safeMap(@(x) rand(1,300)*x^5*rand(300,1), repmat({rand(300)}, 100, 100));
 Progress: 731 / 10000 (7.3%)
 Estimated remaining time: 143s
 🔴(Ctrl+C) Operation terminated by user during ...
->> output = safeMap(@(x) rand(1,300)*x^5*rand(300,1), repmat({rand(300)}, 100, 100));
+>> output = safemap.safeMap(@(x) rand(1,300)*x^5*rand(300,1), repmat({rand(300)}, 100, 100));
 Resuming previous work, from 732-th input
 Progress: 10000 / 10000 (100.0%)
 Estimated remaining time: 0s
@@ -41,18 +41,15 @@ Estimated remaining time: 0s
 
 ## Installation
 
-Download the [function](https://raw.githubusercontent.com/ferrarodav/safeMap/main/safeMap.m) and put it in your workspace.
-
-Or clone the whole repository with git:
+Clone the [repo](https://github.com/ferrarodav/safeMap/) (or [download a copy of the latest code](https://github.com/ferrarodav/safeMap/archive/refs/heads/main.zip)) and add the `Mcode` directory to your MATLAB path with `addpath`.
 
 ```bash
-git clone https://github.com/ferrarodav/safeMap.git
+git clone https://github.com/ferrarodav/safeMap
 ```
 
 ## Arguments
 
-`safeMap(function_handle, inputs, config)`
-
+`safemap.safeMap(function_handle, inputs, config)`
 - `function_handle`: a function handle (@nameOfYourFunction or @(x) expression)
 - `inputs`: indicates the `function_handle` inputs, can be a cell array, a
     matrix or a scalar (`n` means `1:n`)
@@ -88,8 +85,8 @@ all_params = cell(1, length(hps));
 
 % trick to pass multiple inputs since it is currently not supported by safeMap
 ins = cellfun(@(a,b,c,d) {a, b, c, d}, all_params{:}, 'un', 0);
-output_file = safeMap(@(vars) data * vars{1} * vars{2} * vars{3}, ins);
-% desiderable: safeMap(@(a,b,c,d) a * b * c, all_params{:});
+output_file = safemap.safeMap(@(vars) data * vars{1} * vars{2} * vars{3}, ins);
+% desiderable: safemap.safeMap(@(a,b,c,d) a * b * c, all_params{:});
 
 % read the output corresponding to hps: 1, 4, 100
 disp(output_file.data(1,4,3,1)); % 400
@@ -108,14 +105,14 @@ ans =
 >> size(data{1}) 
 ans =
     1      1000    
->> maxValues, maxIndexs = safeMap(@(x) maxk(x, 2), data, struct('returnData', true));
+>> maxValues, maxIndexs = safemap.safeMap(@(x) maxk(x, 2), data, struct('returnData', true));
 >> size(maxValues) 
 ans =
     100    2
 >> size(maxIndexs) 
 ans =
     100    2
->> output_file = safeMap(@(x) maxk(x, 2), data, struct('variableNames', 'filePath', 'max.mat', {{'values', 'indexs'}}));
+>> output_file = safemap.safeMap(@(x) maxk(x, 2), data, struct('variableNames', 'filePath', 'max.mat', {{'values', 'indexs'}}));
 >> who -file max.mat
 
 Your variables are:

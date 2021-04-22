@@ -1,5 +1,7 @@
 function varargout = safeMap(function_handle, inputs, config)
-%%safeMap stores on disk partial results freeing memory and avoiding data loss
+%safeMap stores on disk partial results freeing memory and avoiding data loss
+%
+% varargout = safemap.safeMap(function_handle, inputs, config)
 %
 % The passed one parameter function is fed with each input cell and the outputs
 % are saved in a file as they are generated; a cell matrix containing the outputs,

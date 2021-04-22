@@ -1,3 +1,7 @@
+% Tests for safeMap
+%
+% To run this, call safemap.safeMap_tests.
+
 % test triangles
 
 % inputs
@@ -15,7 +19,7 @@ delete progress.safemap.mat
 delete 1.mat
 expSize_ = size(vector_scalar_inputs);
 config_ = struct('filePath', '1.mat');
-output_file = safeMap(@(x) 1, vector_scalar_inputs, config_);
+output_file = safemap.safeMap(@(x) 1, vector_scalar_inputs, config_);
 sz_ = size(output_file, 'data');
 assert(isequal(sz_, expSize_), 'Output size wrong: obtained [%s] expected [%s]', num2str(sz_), num2str(expSize_));
 
@@ -24,7 +28,7 @@ delete 2.mat
 expSize_ = size(vector_scalar_inputs);
 expChildSize_ = [1 1];
 config_ = struct('joinUniformOutput', false, 'filePath', '2.mat');
-output_file = safeMap(@(x) 1, vector_scalar_inputs, config_);
+output_file = safemap.safeMap(@(x) 1, vector_scalar_inputs, config_);
 child_ = output_file.data(1, 1);
 sz_ = size(output_file, 'data'); 
 szc_ = size(child_{1}); 
@@ -35,7 +39,7 @@ assert(isequal(szc_, expChildSize_), 'Output cell size wrong: obtained [%s] expe
 delete 3.mat
 expSize_ = size(dim3_scalar_inputs);
 config_ = struct('joinUniformOutput', false, 'filePath', '3.mat');
-output_file = safeMap(@(x) 1, dim3_scalar_inputs, config_);
+output_file = safemap.safeMap(@(x) 1, dim3_scalar_inputs, config_);
 sz_ = size(output_file, 'data');
 assert(isequal(sz_, expSize_), 'Output size wrong: obtained [%s] expected [%s]', num2str(sz_), num2str(expSize_));
 
@@ -43,7 +47,7 @@ assert(isequal(sz_, expSize_), 'Output size wrong: obtained [%s] expected [%s]',
 delete 4.mat
 expSize_ = [size(dim3_scalar_inputs) 10 10 2];
 config_ = struct('filePath', '4.mat');
-output_file = safeMap(@(x) repmat(magic(10), 1, 1, 2), dim3_scalar_inputs, config_);
+output_file = safemap.safeMap(@(x) repmat(magic(10), 1, 1, 2), dim3_scalar_inputs, config_);
 sz_ = size(output_file, 'data');
 assert(isequal(sz_, expSize_), 'Output size wrong: obtained [%s] expected [%s]', num2str(sz_), num2str(expSize_));
 
@@ -52,7 +56,7 @@ delete 5.mat
 expSize_ = size(dim3_scalar_inputs);
 expChildSize_ = [10 10 2];
 config_ = struct('joinUniformOutput', false, 'filePath', '5.mat');
-output_file = safeMap(@(x) repmat(magic(10), 1, 1, 2), dim3_scalar_inputs, config_);
+output_file = safemap.safeMap(@(x) repmat(magic(10), 1, 1, 2), dim3_scalar_inputs, config_);
 child_ = output_file.data(1,1,1);
 sz_ = size(output_file, 'data');
 szc_ = size(child_{1});
@@ -63,7 +67,7 @@ assert(isequal(szc_, expChildSize_), 'Output cell size wrong: obtained [%s] expe
 delete 6.mat
 expSize_ = size(vector_vector_inputs);
 config_ = struct('returnData', true, 'filePath', '6.mat');
-[maxValues, maxIndexs] = safeMap(@max, vector_vector_inputs, config_);
+[maxValues, maxIndexs] = safemap.safeMap(@max, vector_vector_inputs, config_);
 sz1_ = size(maxValues);
 sz2_ = size(maxIndexs);
 assert(isequal(sz1_, expSize_) && isequal(sz2_, expSize_), 'Output sizes wrong: obtained [%s] and [%s], expected [%s]', num2str(sz1_), num2str(sz2_), num2str(expSize_));
@@ -72,7 +76,7 @@ assert(isequal(sz1_, expSize_) && isequal(sz2_, expSize_), 'Output sizes wrong: 
 delete 7.mat
 expSize_ = [length(vector_vector_inputs) 5];
 config_ = struct('variableName', {{'values', 'indexs'}}, 'filePath', '7.mat');
-output_file = safeMap(@(x) maxk(x, 5), vector_vector_inputs, config_);
+output_file = safemap.safeMap(@(x) maxk(x, 5), vector_vector_inputs, config_);
 sz1_ = size(output_file, 'values');
 sz2_ = size(output_file, 'indexs');
 assert(allInFile(output_file, {'values', 'indexs'}), 'Variables not found in output file');
@@ -83,7 +87,7 @@ delete 8.mat
 expSize_ = size(vector_vector_inputs);
 expChildSize_ = [1 5];
 config_ = struct('returnData', true, 'joinUniformOutput', false, 'filePath', '8.mat');
-maxValues = safeMap(@(x) maxk(x, 5), vector_vector_inputs, config_);
+maxValues = safemap.safeMap(@(x) maxk(x, 5), vector_vector_inputs, config_);
 sz_ = size(maxValues);
 szc_ = size(maxValues{1});
 assert(isequal(sz_, expSize_), 'Output size wrong: obtained [%s] expected [%s]', num2str(sz_), num2str(expSize_));
@@ -95,9 +99,9 @@ config_ = struct('filePath', '9.mat');
 data = true(size(vector_scalar_inputs));
 data(50) = false;
 try
-    output_file = safeMap(@(i) data(i) || {}, vector_scalar_inputs, config_);
+    output_file = safemap.safeMap(@(i) data(i) || {}, vector_scalar_inputs, config_);
 catch
-    output_file = safeMap(@(i) false, vector_scalar_inputs, config_);
+    output_file = safemap.safeMap(@(i) false, vector_scalar_inputs, config_);
 end
 assert(isequal(output_file.data(1:49), true(1, 49)), '');
 assert(isequal(output_file.data(50:end), false(1, length(vector_scalar_inputs)-49)), '');
