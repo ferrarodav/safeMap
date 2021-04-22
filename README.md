@@ -1,6 +1,6 @@
 # Memory and interruption safe map <!-- omit in toc -->
 
-### Alternative for Matlab® `cellfun` <!-- omit in toc -->
+## Alternative for Matlab® `cellfun` <!-- omit in toc -->
 
 [![View safeMap on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://it.mathworks.com/matlabcentral/fileexchange/90807-safemap)
 
@@ -13,7 +13,7 @@ Each output of the function can be saved in a cell matrix with the same structur
 Moreover, the used file paths and the name under which each output variable is stored can be specified in the configuration.
 <!--When needed, the number of outputs can be manually specified (`config.numberOfFunctionOutputs`) otherwise it will be inferred.-->
 
-```matlab
+```text
 >> output = safemap.safeMap(@(x) rand(1,300)*x^5*rand(300,1), repmat({rand(300)}, 100, 100));
 Progress: 731 / 10000 (7.3%)
 Estimated remaining time: 143s
@@ -24,11 +24,11 @@ Progress: 10000 / 10000 (100.0%)
 Estimated remaining time: 0s
 ```
 
-### Limitations 
+## Limitations
 
 `safeMap` writes data on the disk after every output computed, so it's inherently slower than `cellfun`. Moreover, currently it accepts only one input, though this can be easily overcome like in the example below.
 
-### Table of contents <!-- omit in toc -->
+## Table of contents <!-- omit in toc -->
 
 - [Installation](#installation)
 - [Arguments](#arguments)
@@ -54,12 +54,12 @@ git clone https://github.com/ferrarodav/safeMap
 - `inputs`: indicates the `function_handle` inputs, can be a cell array, a
     matrix or a scalar (`n` means `1:n`)
 - `config`: a struct with some configuration
-    - `filePath`: absolute or relative path of the file where the output data is saved. NB if using a file already existing, make sure the mat version is 7.3 to allow partial writing [default is `output.mat`]
-    - `tempFilePath`: absolute or relative path of the file where the current state is saved (the index of the cycle) [default is `progress.safemap.mat`]
-    - `variableName`: the names of the variables under which the output data is saved inside the file specified in filePath. Can be a single string, a cell of strings if multiple outputs. If less names than outputs "data_i" will be used for the missing names [default is `data`]
-    - `returnData`: true/false. If true, a cell containing all the outputs will be returned and **the output file will be deleted**. If false the output file handler is returned [default is `false`]
-    - `joinUniformOutput`: like `cellfun` uniformOutput option, instead of returning a cell matrix of individual outputs, tries to join them together in a single matrix. Only numeric, logical, cell and struct outputs can be joined [default is `true`]
-    - `numberOfFunctionOutputs`: number of outputs to expect from the passed function [by default it is inferred from `function_handle`]
+  - `filePath`: absolute or relative path of the file where the output data is saved. NB if using a file already existing, make sure the mat version is 7.3 to allow partial writing [default is `output.mat`]
+  - `tempFilePath`: absolute or relative path of the file where the current state is saved (the index of the cycle) [default is `progress.safemap.mat`]
+  - `variableName`: the names of the variables under which the output data is saved inside the file specified in filePath. Can be a single string, a cell of strings if multiple outputs. If less names than outputs "data_i" will be used for the missing names [default is `data`]
+  - `returnData`: true/false. If true, a cell containing all the outputs will be returned and **the output file will be deleted**. If false the output file handler is returned [default is `false`]
+  - `joinUniformOutput`: like `cellfun` uniformOutput option, instead of returning a cell matrix of individual outputs, tries to join them together in a single matrix. Only numeric, logical, cell and struct outputs can be joined [default is `true`]
+  - `numberOfFunctionOutputs`: number of outputs to expect from the passed function [by default it is inferred from `function_handle`]
 
 ## Outputs
 
@@ -73,7 +73,7 @@ In case `config.joinUniformOutput` is `true` (which is the default), each output
 
 ### Explore a grid of hyperparameters for a simulation or training a Neural Netork
 
-```matlab 
+```matlab
 data = 1;
 
 % list of hps values 
@@ -122,18 +122,22 @@ values  indexs
 ```
 
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Here is some contribution idea:
+
 - allow multiple inputs with varargin
 - a parameter to save progress to disk less frequently in order to balance between safety, memory occupation and speed of execution
 - parallel execution with sharding
-- use matlab datastore API
+- use MATLAB datastore API
 
 To run the test use matlab command:
+
 ```matlab
->> result = runtests('safeMap_tests');
+result = runtests('safeMap_tests');
 ```
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+
+[MIT License](https://choosealicense.com/licenses/mit/)
